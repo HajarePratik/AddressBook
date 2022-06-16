@@ -12,7 +12,12 @@ public class AddressBookMain {
     public void addAddressBook() {
         System.out.println("Enter a Address Book Name :- ");
         String addressBookName = sc.nextLine();
-        addressBookMap.put(addressBookName, new AddressBook());
+        if (!isAvailable(addressBookName)) {
+            addressBookMap.put(addressBookName, new AddressBook());
+        } else {
+            System.out.println("This Address Book Already Exist");
+        }
+
     }
 
     public void updateAddressBook() {
@@ -34,9 +39,22 @@ public class AddressBookMain {
         displayAddressBook();
         System.out.println("Enter the Address Book Name To Select :- ");
         String addressBookName = sc.nextLine();
-        AddressBook addressBook = addressBookMap.get(addressBookName);
-        addressBook.contactMenu();
+        if (isAvailable(addressBookName)) {
+            AddressBook addressBook = addressBookMap.get(addressBookName);
+            addressBook.contactMenu();
+        } else {
+            System.out.println("No Address Book Found");
+        }
 
+    }
+
+    public boolean isAvailable(String bookName) {
+        for (String key : addressBookMap.keySet()) {
+            if (key.contains(bookName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void main(String[] args) {

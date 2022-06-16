@@ -10,31 +10,35 @@ public class AddressBook {
     public void addContact() {
         Scanner scanner = new Scanner(System.in);
         Contact contact = new Contact();
-        System.out.println("Enter a First Name :- ");
-        contact.setFirstName(scanner.nextLine());
-        System.out.println("Enter a Last Name :- ");
-        contact.setLastName(scanner.nextLine());
-        System.out.println("Enter a Mobile Number :- ");
-        contact.setMobileNo(scanner.nextLine());
         System.out.println("Enter a Email Id :- ");
         contact.setEmailId(scanner.nextLine());
-        System.out.println("Enter a City :- ");
-        contact.setCity(scanner.nextLine());
-        System.out.println("Enter a State :- ");
-        contact.setState(scanner.nextLine());
-        System.out.println("Enter a Pincode :- ");
-        contact.setPincode(scanner.nextLine());
-        arrayList.add(contact);
+        if (!isEmailAvailable(contact.getEmailId())) {
+            System.out.println("Enter a First Name :- ");
+            contact.setFirstName(scanner.nextLine());
+            System.out.println("Enter a Last Name :- ");
+            contact.setLastName(scanner.nextLine());
+            System.out.println("Enter a Mobile Number :- ");
+            contact.setMobileNo(scanner.nextLine());
+            System.out.println("Enter a City :- ");
+            contact.setCity(scanner.nextLine());
+            System.out.println("Enter a State :- ");
+            contact.setState(scanner.nextLine());
+            System.out.println("Enter a Pincode :- ");
+            contact.setPincode(scanner.nextLine());
+            arrayList.add(contact);
+        } else {
+            System.out.println("Contact Already Exist");
+        }
     }
 
     public void updateContact() {
         Scanner scanner = new Scanner(System.in);
         Contact contact;
-        System.out.println("Enter the First Name Which You Want to Update : ");
-        String firstName = scanner.nextLine();
+        System.out.println("Enter the Email ID Which You Want to Update : ");
+        String emailId = scanner.nextLine();
         for (int i = 0; i < arrayList.size(); i++) {
             contact = arrayList.get(i);
-            if (contact.getFirstName().equals(firstName)) {
+            if (isEmailAvailable(emailId)) {
 
                 System.out.println("Enter a First Name :- ");
                 contact.setFirstName(scanner.nextLine());
@@ -73,6 +77,16 @@ public class AddressBook {
                 arrayList.remove(contact);
             }
         }
+    }
+
+    public boolean isEmailAvailable(String emailId) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            Contact contact = arrayList.get(i);
+            if (contact.getEmailId().equalsIgnoreCase(emailId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void contactMenu() {
