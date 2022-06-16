@@ -75,4 +75,31 @@ public class AddressBook {
         }
     }
 
+    public void contactMenu() {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.println("Welcome To Address Book");
+            System.out.println("1.Add Contact\n2.Update Contact\n3.Delete Contact \n4.Display Contacts \n5.Exit");
+            System.out.println("Enter Your Choice from Above : ");
+            choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    addContact();
+                    break;
+                case 2:
+                    updateContact();
+                    break;
+                case 3:
+                    deleteContact();
+                    break;
+                case 4:
+                    displayContact();
+                    break;
+                default:
+                    System.out.println("Thank You !");
+                    break;
+            }
+        } while (choice < 5);
+    }
 }

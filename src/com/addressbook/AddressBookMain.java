@@ -1,37 +1,72 @@
 package com.addressbook;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBookMain {
 
+    Map<String, AddressBook> addressBookMap = new HashMap<>();
+    Scanner sc = new Scanner(System.in);
+
+    public void addAddressBook() {
+        System.out.println("Enter a Address Book Name :- ");
+        String addressBookName = sc.nextLine();
+        addressBookMap.put(addressBookName, new AddressBook());
+    }
+
+    public void updateAddressBook() {
+
+    }
+
+    public void deleteAddressBook() {
+
+    }
+
+    public void displayAddressBook() {
+        for (String key : addressBookMap.keySet()) {
+            System.out.println(key);
+        }
+
+    }
+
+    public void selectAddressBook() {
+        displayAddressBook();
+        System.out.println("Enter the Address Book Name To Select :- ");
+        String addressBookName = sc.nextLine();
+        AddressBook addressBook = addressBookMap.get(addressBookName);
+        addressBook.contactMenu();
+
+    }
 
     public static void main(String[] args) {
-
-        AddressBook addressBook = new AddressBook();
+        AddressBookMain addressBookMain = new AddressBookMain();
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("Welcome To Address Book");
-            System.out.println("1.Add Contact\n2.Update Contact\n3.Delete Contact \n4.Display Contacts \n5.Exit");
-            System.out.println("Enter Your Choice from Above : ");
+            System.out.println("1.Add Address Book\n2.Update Address Book\n3.Delete Address Book \n4.Display Address Book\n5.Select Address Book\n6.Exit");
+            System.out.println("Enter Your Choice :- ");
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    addressBook.addContact();
+                    addressBookMain.addAddressBook();
                     break;
                 case 2:
-                    addressBook.updateContact();
+                    addressBookMain.updateAddressBook();
                     break;
                 case 3:
-                    addressBook.deleteContact();
+                    addressBookMain.deleteAddressBook();
                     break;
                 case 4:
-                    addressBook.displayContact();
+                    addressBookMain.displayAddressBook();
+                    break;
+                case 5:
+                    addressBookMain.selectAddressBook();
                     break;
                 default:
                     System.out.println("Thank You !");
                     break;
             }
-        } while (choice < 5);
+        } while (choice <= 5);
     }
 }
