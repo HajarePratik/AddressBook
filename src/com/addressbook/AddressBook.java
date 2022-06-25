@@ -7,6 +7,16 @@ public class AddressBook {
 
     ArrayList<Contact> arrayList = new ArrayList<>();
 
+    public boolean isEmailAvailable(String emailId) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            Contact contact = arrayList.get(i);
+            if (contact.getEmailId().equalsIgnoreCase(emailId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addContact() {
         Scanner scanner = new Scanner(System.in);
         Contact contact = new Contact();
@@ -62,10 +72,6 @@ public class AddressBook {
 
     }
 
-    public void displayContact() {
-        System.out.println(arrayList);
-    }
-
     public void deleteContact() {
         Scanner scanner = new Scanner(System.in);
         Contact contact;
@@ -79,14 +85,22 @@ public class AddressBook {
         }
     }
 
-    public boolean isEmailAvailable(String emailId) {
+    public void displayContact() {
+        System.out.println(arrayList);
+    }
+
+    private void searchCity() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter City What You want to Search:- ");
+        String searchCity = scanner.nextLine();
         for (int i = 0; i < arrayList.size(); i++) {
             Contact contact = arrayList.get(i);
-            if (contact.getEmailId().equalsIgnoreCase(emailId)) {
-                return true;
+            if (searchCity.equalsIgnoreCase(contact.getCity())) {
+                System.out.println(contact);
+            } else {
+                System.out.println("City Not Found");
             }
         }
-        return false;
     }
 
     public void contactMenu() {
@@ -94,7 +108,7 @@ public class AddressBook {
         int choice;
         do {
             System.out.println("Welcome To Address Book");
-            System.out.println("1.Add Contact\n2.Update Contact\n3.Delete Contact \n4.Display Contacts \n5.Exit");
+            System.out.println("1.Add Contact\n2.Update Contact\n3.Delete Contact \n4.Display Contacts \n5.Search City \n6.Exit");
             System.out.println("Enter Your Choice from Above : ");
             choice = scanner.nextInt();
             switch (choice) {
@@ -110,10 +124,13 @@ public class AddressBook {
                 case 4:
                     displayContact();
                     break;
+                case 5:
+                    searchCity();
+                    break;
                 default:
                     System.out.println("Thank You !");
                     break;
             }
-        } while (choice < 5);
+        } while (choice < 6);
     }
 }

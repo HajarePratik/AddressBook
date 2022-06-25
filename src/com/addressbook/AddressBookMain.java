@@ -48,6 +48,21 @@ public class AddressBookMain {
 
     }
 
+    private void searchCity() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter City What You want to Search:- ");
+        String searchCity = scanner.nextLine();
+        for (String key : addressBookMap.keySet()) {
+            AddressBook addressBook = addressBookMap.get(key);
+            for (int i = 0; i < addressBook.arrayList.size(); i++) {
+                Contact contact = addressBook.arrayList.get(i);
+                if (searchCity.equalsIgnoreCase(contact.getCity())) {
+                    System.out.println(contact);
+                }
+            }
+        }
+    }
+
     public boolean isAvailable(String bookName) {
         for (String key : addressBookMap.keySet()) {
             if (key.contains(bookName)) {
@@ -62,7 +77,7 @@ public class AddressBookMain {
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("1.Add Address Book\n2.Update Address Book\n3.Delete Address Book \n4.Display Address Book\n5.Select Address Book\n6.Exit");
+            System.out.println("1.Add Address Book\n2.Update Address Book\n3.Delete Address Book\n4.Display Address Book\n5.Select Address Book\n6.Search City\n7.Exit");
             System.out.println("Enter Your Choice :- ");
             choice = scanner.nextInt();
             switch (choice) {
@@ -81,10 +96,12 @@ public class AddressBookMain {
                 case 5:
                     addressBookMain.selectAddressBook();
                     break;
+                case 6:
+                    addressBookMain.searchCity();
                 default:
                     System.out.println("Thank You !");
                     break;
             }
-        } while (choice <= 5);
+        } while (choice <= 6);
     }
 }
